@@ -1,0 +1,51 @@
+package db;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
+
+public class DB {
+	
+	private static Connection conexao = null;
+	
+	public static Connection conectarBD() { // conectar com BD
+		try {
+			if(conexao == null) {
+				Properties properties = loadProperties();
+				String url = properties.getProperty("dburl");
+				conexao = DriverManager.getConnection(url, properties);
+				System.out.println("Conectando no banco de dados...");
+			}
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		return conexao;
+	}
+	
+	public static void desconectarDB() { // desconectar do BD
+		if (conexao != null) {
+			try {
+				conexao.close();
+			}
+			catch (SQLException e) {
+				throw new DbException(e.getMessage());
+			}
+		}
+	}
+	
+	private static Properties loadProperties() { // método que carrega as informações para fazer a conexão
+		
+		try (FileInputStream arquivoDaConexao = new FileInputStream("db.properties")){
+			Properties properties = new Properties();
+			properties.load(arquivoDaConexao);
+			return properties;
+		} 
+		catch (IOException e) {
+			throw new DbException(e.getMessage());
+		}
+	}
+}

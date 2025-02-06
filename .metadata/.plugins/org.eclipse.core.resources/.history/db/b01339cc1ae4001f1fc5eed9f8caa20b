@@ -1,0 +1,37 @@
+package application;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+import db.DB;
+
+public class Program {
+
+	public static void main(String[] args) {
+		
+		Connection connection = null;
+		Statement consultaSQL = null;
+		ResultSet resultadoDaConsultaSQL = null;
+		
+		// fazer a consulta SQL
+		
+		try {
+			connection = DB.conectarBD();
+			consultaSQL = connection.createStatement();
+			resultadoDaConsultaSQL = consultaSQL.executeQuery("select * from department");
+			
+			while (resultadoDaConsultaSQL.next()){
+				System.out.println(resultadoDaConsultaSQL.getInt("Id") + ", " + resultadoDaConsultaSQL.getString("Name"));
+			}
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		// mostrar os departamentos encontrados
+		
+		
+	}
+}
