@@ -3,6 +3,7 @@ package application;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -11,7 +12,7 @@ import db.BD;
 public class Program {
 
 	public static void main(String[] args) {
-		
+		// testeee
 		SimpleDateFormat formatoDaData = new SimpleDateFormat("dd/MM/yyyy");
 		Connection conexao = null;
 		PreparedStatement instrucaoSQL = null;
@@ -19,7 +20,8 @@ public class Program {
 		try {
 			conexao = BD.conectarBD();
 			instrucaoSQL = conexao.prepareStatement(
-					"INSERT INTO cursojdbc.seller (Name, Email, BirthDate, BaseSalary, DepartmentId) VALUES (?, ?, ?, ?, ?)"
+					"INSERT INTO cursojdbc.seller (Name, Email, BirthDate, BaseSalary, DepartmentId) VALUES (?, ?, ?, ?, ?)" // funcionário
+					, Statement.RETURN_GENERATED_KEYS 
 					);
 			instrucaoSQL.setString(1, "João Vitor");
 			instrucaoSQL.setString(2, "joao.duarte@gmail.com");
