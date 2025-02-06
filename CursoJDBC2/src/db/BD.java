@@ -20,7 +20,7 @@ public class BD {
 				String url = properties.getProperty("dburl");
 				//conexao = DriverManager.getConnection(url, properties);
 				conexao = DriverManager.getConnection(url, properties);
-				System.out.println("Banco de dados conectado...");
+				System.out.println("Banco de dados 2 conectado...");
 			}
 		}
 		catch (SQLException e) {
